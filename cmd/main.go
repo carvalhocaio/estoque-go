@@ -12,12 +12,12 @@ func main() {
 	estoque := services.NewEstoque()
 	items := []models.Item{
 		{ID: 1, Name: "Fone", Quantity: 10, Price: 100},
-		{ID: 2, Name: "Camiseta", Quantity: 1, Price: 55.99},
+		{ID: 2, Name: "Camiseta", Quantity: 1, Price: 50},
 		{ID: 3, Name: "Mouse", Quantity: 2, Price: 12.99},
 	}
 
 	for _, item := range items {
-		err := estoque.AddItem(item)
+		err := estoque.AddItem(item, "Monkey D. Luffy")
 		if err != nil {
 			fmt.Println(err)
 			continue
@@ -25,6 +25,18 @@ func main() {
 	}
 
 	for _, item := range estoque.ListItems() {
-		fmt.Printf("\nID: %d | Item: %s | Quantidade: %d | Preço: %2.f", item.ID, item.Name, item.Quantity, item.Price)
+		fmt.Printf(
+			"\nID: %d | Item: %s | Quantidade: %d | Preço: %2.f",
+			item.ID, item.Name, item.Quantity, item.Price,
+		)
 	}
+	fmt.Println("\nValor total do estoque R$:", estoque.CalculateTotalCost())
+
+	/* logs := estoque.ViewAuditLog()
+	for _, log := range logs {
+		fmt.Printf(
+			"\n[%s] Ação: %s - Usuário: %s - Item ID: %d - Quantidade: %d - Motivo: %s",
+			log.Timestamp.Format("01/02 15:04:05"), log.Action, log.User, log.ItemID, log.Quantity, log.Reason,
+		)
+	} */
 }
