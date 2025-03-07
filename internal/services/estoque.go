@@ -104,3 +104,19 @@ func (e *Estoque) CalculateTotalCost() float64 {
 
 	return totalCost
 }
+
+// Generics
+func FindBy[T any](data []T, comparator func(T) bool) ([]T, error) {
+	var result []T
+	for _, v := range data {
+		if comparator(v) {
+			result = append(result, v)
+		}
+	}
+
+	if len(result) == 0 {
+		return nil, fmt.Errorf("nenhum item foi encontrado")
+	}
+
+	return result, nil
+}

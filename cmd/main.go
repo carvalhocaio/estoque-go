@@ -10,13 +10,13 @@ func main() {
 	fmt.Println("Sistema de Estoque")
 
 	estoque := services.NewEstoque()
-	items := []models.Item{
+	itens := []models.Item{
 		{ID: 1, Name: "Fone", Quantity: 10, Price: 100},
 		{ID: 2, Name: "Camiseta", Quantity: 1, Price: 50},
 		{ID: 3, Name: "Mouse", Quantity: 2, Price: 12.99},
 	}
 
-	for _, item := range items {
+	for _, item := range itens {
 		err := estoque.AddItem(item, "Monkey D. Luffy")
 		if err != nil {
 			fmt.Println(err)
@@ -39,4 +39,14 @@ func main() {
 			log.Timestamp.Format("01/02 15:04:05"), log.Action, log.User, log.ItemID, log.Quantity, log.Reason,
 		)
 	} */
+
+	itemBySearch, err := services.FindBy(itens, func(item models.Item) bool {
+		return item.Price > 40
+	})
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("itens encontrados: ", itemBySearch)
 }
