@@ -40,7 +40,7 @@ func main() {
 		)
 	} */
 
-	itemBySearch, err := services.FindBy(itens, func(item models.Item) bool {
+	/* itemBySearch, err := services.FindBy(itens, func(item models.Item) bool {
 		return item.Price > 40
 	})
 
@@ -48,5 +48,18 @@ func main() {
 		fmt.Println(err)
 	}
 
-	fmt.Println("itens encontrados: ", itemBySearch)
+	fmt.Println("itens encontrados: ", itemBySearch) */
+
+	aurora := services.Fornecedor{
+		CNPJ:    "012345678911121",
+		Contato: "5500987654321",
+		Cidade:  "Dressrosa",
+	}
+
+	fmt.Println(aurora.GetInfo())
+	if aurora.VerificarDisponibilidade(100, 15) {
+		fmt.Println("Possui disponibilidade")
+	} else {
+		fmt.Println("Não possui disponibilidade")
+	}
 }
